@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Authentication</name>
+    </assembly>
+    <members>
+        <member name="M:Authentication.Controllers.AdminController.RegisterAdmin(Authentication.Dtos.UserDto)">
+            <summary>
+            RegisterAdmin
+            </summary>
+            <param name="userDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Authentication.Interfaces.IUserRepository.Register(Authentication.Models.User)">
+            <summary>
+            Register
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Authentication.Providers.UserRepository">
+            <summary>
+            UserRepository
+            </summary>
+        </member>
+        <member name="M:Authentication.Providers.UserRepository.#ctor(Authentication.AuthentiContext)">
+            <summary>
+            UserRepository
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Authentication.Providers.UserRepository.Register(Authentication.Models.User)">
+            <summary>
+            Register
+            </summary>
+            <param name="user"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
