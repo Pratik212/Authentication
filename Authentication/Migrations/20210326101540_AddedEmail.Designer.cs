@@ -3,15 +3,17 @@ using System;
 using Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Authentication.Migrations
 {
     [DbContext(typeof(AuthentiContext))]
-    partial class AuthentiContextModelSnapshot : ModelSnapshot
+    [Migration("20210326101540_AddedEmail")]
+    partial class AddedEmail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

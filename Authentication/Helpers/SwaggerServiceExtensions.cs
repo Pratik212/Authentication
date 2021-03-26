@@ -21,8 +21,8 @@ namespace Authentication.Helpers
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Kash-IN API",
-                    Description = "A Kash-IN Web API...",
+                    Title = "Authentication API",
+                    Description = "Authentication Web API...",
                 });
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -81,6 +81,11 @@ namespace Authentication.Helpers
             return services;
         }
 
+        /// <summary>
+        /// UseSwaggerDocumentation
+        /// </summary>
+        /// <param name="app"></param>
+        /// <returns></returns>
         public static IApplicationBuilder UseSwaggerDocumentation(this IApplicationBuilder app)
         {
             app.UseSwagger();

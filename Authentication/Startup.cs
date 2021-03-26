@@ -53,6 +53,8 @@ namespace Authentication
             services.AddSwaggerDocumentation();
             
             services.AddTransient<IUserRepository, UserRepository>();
+            
+            services.AddAppSettingsService(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
