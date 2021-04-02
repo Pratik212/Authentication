@@ -1,5 +1,6 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,9 @@ using Authentication.Helpers;
 using Authentication.Interfaces;
 using Authentication.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -40,9 +43,11 @@ namespace Authentication.Controllers
             _mapper = mapper;
             _settings = settings.Value;
         }
+
+        #region POSTAPI
         
         /// <summary>
-        /// RegisterAdmin
+        /// Register
         /// </summary>
         /// <param name="userDto"></param>
         /// <returns></returns>
@@ -107,5 +112,33 @@ namespace Authentication.Controllers
                 Expiration = token.ValidTo,
             });
         }
+        
+        #endregion
+        
+        #region GETAPI
+
+        /// <summary>
+        /// GetAllUser
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("user")]
+        public async Task<IActionResult> GetAllUser()
+        {
+            var user = await _context.Users.ToListAsync();
+
+            var result = user.Select(x => new
+            {
+                x.Id,
+                x.FirstName,
+                x.LastName,
+                x.Email,
+                x.Address,
+            });
+
+            return Ok(result);
+        }
+        
+        #endregion
     }
 }
