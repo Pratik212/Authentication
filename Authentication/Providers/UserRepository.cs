@@ -68,5 +68,16 @@ namespace Authentication.Providers
             // check if password is correct
             return !Utils.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt) ? null : user;
         }
+
+        /// <summary>
+        /// GetUserId
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<User> GetUserId(long userId)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+        }
     }
 }

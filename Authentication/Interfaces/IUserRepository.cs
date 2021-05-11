@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Authentication.Dtos;
 using Authentication.Models;
 
 namespace Authentication.Interfaces
@@ -26,5 +27,12 @@ namespace Authentication.Interfaces
         /// <param name="password"></param>
         /// <returns></returns>
         Task<User> Login(string email, string password);
+
+        /// <summary>
+        /// GetUserId
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<User> GetUserId(long userId);
     }
 }

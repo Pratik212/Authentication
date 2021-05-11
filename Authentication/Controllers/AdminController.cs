@@ -113,6 +113,58 @@ namespace Authentication.Controllers
             });
         }
         
+          /// <summary>
+        /// Validate Admin Token
+        /// </summary>
+        /// <param name="tokenDto"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("ValidateToken")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> ValidateToken([FromBody] TokenDto tokenDto)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var tokenS = handler.ReadToken(tokenDto.Token) as JwtSecurityToken;
+            var jti = tokenS.Claims.First(claim => claim.Type == "unique_name").Value;
+
+
+            var userId = Convert.ToInt64(jti);
+            
+
+            var user = await _context.Users
+                .FirstOrDefaultAsync(x => x.Id == userId);
+            // generate new token
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_settings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.Name, user.Id.ToString()),
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenString = tokenHandler.WriteToken(token);
+
+
+            return Ok(new
+            {
+                user.Id,
+                user.Email,
+                Token = tokenString,
+                Expiration = token.ValidTo,
+                user.FirstName,
+                user.LastName,
+            });
+        }
+
+        
         #endregion
         
         #region GETAPI
